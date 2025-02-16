@@ -1,0 +1,30 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/saudacao", methods=["GET"])
+def saudacao():
+    nome = request.args.get("nome", "Ricardo")
+    return jsonify({"mensagem": f"Olá, {nome}! Seja bem-vindo!"})
+
+@app.route("/soma", methods=["POST"])
+def soma():
+    dados = request.get_json()
+    
+    if not dados:
+        return jsonify({"erro": "O corpo da requisição deve ser um JSON válido!"}), 400
+    
+    num1 = dados.get("num1")
+    num2 = dados.get("num2")
+    
+    if num1 is None or num2 is None:
+        return jsonify({"erro": "Os números num1 e num2 são obrigatórios!"}), 400
+    
+    if not isinstance(num1, (int, float)) or not isinstance(num2, (int, float)):
+        return jsonify({"erro": "Os valores de num1 e num2 devem ser números!"}), 400
+    
+    resultado = num1 + num2
+    return jsonify({"resultado": resultado})
+
+if __name__ == "__main__":
+    app.run(debug=True)
