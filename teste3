@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/saudacao", methods=["GET"])
 def saudacao():
-    nome = request.args.get("nome", "Ricardo")
+    nome = request.args.get("nome", "Renato")
     return jsonify({"mensagem": f"Olá, {nome}! Seja bem-vindo!"})
 
 @app.route("/soma", methods=["POST"])
