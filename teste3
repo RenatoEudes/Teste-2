@@ -9,8 +9,10 @@ def saudacao():
 
 @app.route("/soma", methods=["POST"])
 def soma():
+    try
     dados = request.get_json()
-    
+    except:
+        print(Não é um json válido!)
     if not dados:
         return jsonify({"erro": "O corpo da requisição deve ser um JSON válido!"}), 400
     
