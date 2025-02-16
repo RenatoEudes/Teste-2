@@ -1,0 +1,17 @@
+import pandas as pd
+
+df = pd.read_csv("vendas.csv")
+
+df["faturamento"] = df["quantidade"] * df["preco_unitario"]
+faturamento_por_produto = df.groupby("produto")["faturamento"].sum()
+
+produto_max = faturamento_por_produto.idxmax()
+faturamento_max = faturamento_por_produto.max()
+
+produto_min = faturamento_por_produto.idxmin()
+faturamento_min = faturamento_por_produto.min()
+
+print("Faturamento total por produto:")
+print(faturamento_por_produto)
+print(f"\nProduto com maior faturamento: {produto_max} - {faturamento_max}")
+print(f"Produto com menor faturamento: {produto_min} - {faturamento_min}")
