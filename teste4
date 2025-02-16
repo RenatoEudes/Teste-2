@@ -1,0 +1,27 @@
+import asyncio
+import time
+
+async def chamada_rede(id, tempo):
+    print(f"Iniciando chamada {id}...")
+    await asyncio.sleep(tempo)
+    print(f"Chamada {id} finalizada após {tempo} segundos.")
+    return f"Resultado {id}"
+
+async def main():
+    inicio = time.time()
+    
+    tarefas = [
+        chamada_rede(1, 2),
+        chamada_rede(2, 3),
+        chamada_rede(3, 1)
+    ]
+    
+    resultados = await asyncio.gather(*tarefas)
+    
+    fim = time.time()
+    tempo_total = fim - inicio
+    
+    print("\nResultados:", resultados)
+    print(f"Tempo total de execução: {tempo_total:.2f} segundos")
+
+asyncio.run(main())
